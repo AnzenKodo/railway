@@ -1,0 +1,65 @@
+<form>
+  <p>Phone Number: <input type="tel" id="user-number" required></p>
+  <p id="user-info"></p>
+  <div id="user-new">
+    <p>Name: <input id="user-name" required></p>
+    <p>Date of Birth: <input type="date" max="2010-12-31" id="user-dob" required></p>
+  </div>
+
+  <p>Station From: <input list="stations-from-names" id="station-from" required></p>
+  <datalist id="stations-from-names"></datalist>
+
+  <p>Station To: <input list="stations-to-names" id="station-to" required></p>
+  <datalist id="stations-to-names"></datalist>
+  <p id="stations-info"></p>
+</form>
+
+<script>
+async function getStations() {
+  const stations = await fetch("https://api.irail.be/stations/?format=json")
+    .then(res => res.json())
+    .then(res => res.station);
+
+  const datalist = document.querySelector("#stations-from-names");
+  stations.forEach(ele => {
+    const options = document.createElement("option");
+
+    options.value = ele.standardname;
+    options.textContent = ele.id;
+
+    datalist.appendChild(options);
+  }) 
+}
+getStations();
+
+const stationFrom = document.getElementById("station-from");
+const stationTo = document.getElementById("station-to");
+stationFrom.addEventListener("change", async () => {
+  const liveboard = await fetch(`https://api.irail.be/liveboard/?station=${stationFrom.value.replaceAll(" ", "-")}&format=json`)
+    .then(res => res.json())
+    .then(res => res.departures)
+    .then(res => res.departure);
+
+  const datalist = document.querySelector("#stations-to-names");
+  liveboard.forEach(ele => {
+    const options = document.createElement("option");
+
+    options.value = ele.station;
+    options.textContent = ele.stationinfo.id;
+
+    datalist.appendChild(options);
+  })
+
+  stationTo.addEventListener("change", async () => {
+    const stationInfo = document.getElementById("stations-info");
+    const info = liveboard.filter(ele => ele.station === stationTo.value)[0];
+    console.log(formatDate(info.time))
+    console.log(info);
+  })
+})
+
+function formatDate(sec) {
+  const date = new Date(new Date(1970, 1, 1).getTime() + sec * 1000)
+    .toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: true});
+}
+</script>
