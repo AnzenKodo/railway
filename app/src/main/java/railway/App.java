@@ -13,29 +13,29 @@ public class App {
     static final File TEMPL_ROOT = new File("./src/template");
 
     public static void main(String[] args) throws IOException, URISyntaxException, SQLException {
-        Connection conn = DB();
-        // Load the database file into the in-memory database
-        Statement stmt = conn.createStatement();
-        stmt.execute("RESTORE FROM 'database.db'");
+        // Connection conn = DB();
+        // // Load the database file into the in-memory database
+        // Statement stmt = conn.createStatement();
+        // stmt.execute("RESTORE FROM 'database.db'");
 
-        // Execute the SELECT statement and get the result set
-        ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+        // // Execute the SELECT statement and get the result set
+        // ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
-        // Iterate over the result set and print the rows
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            String email = rs.getString("email");
-            System.out.println("id: " + id + ", name: " + name + ", email: " + email);
-        }
+        // // Iterate over the result set and print the rows
+        // while (rs.next()) {
+        // int id = rs.getInt("id");
+        // String name = rs.getString("name");
+        // String email = rs.getString("email");
+        // System.out.println("id: " + id + ", name: " + name + ", email: " + email);
+        // }
 
-        // Create a backup of the in-memory database
-        stmt.execute("BACKUP TO 'database.db'");
+        // // Create a backup of the in-memory database
+        // stmt.execute("BACKUP TO 'database.db'");
 
-        // Close the connection
-        conn.close();
+        // // Close the connection
+        // conn.close();
 
-        // website();
+        website();
     }
 
     private static Connection DB() {
@@ -92,7 +92,7 @@ public class App {
             String filePath = parse[1];
 
             // Set the default file path to "index.html"
-            if (filePath.equals("/")) {
+            if (filePath.equals("/") || filePath.startsWith("/?")) {
                 filePath = "/index.html";
             }
 
@@ -105,9 +105,12 @@ public class App {
             // we support only GET and HEAD methods, we check
 
             if (file.exists()) {
+                System.out.println(contentType + " " + file + " ");
+
                 // Determine the content type based on the file extension
-                FileTypeMap fileTypeMap = FileTypeMap.getDefaultFileTypeMap();
-                contentType = fileTypeMap.getContentType(file);
+                FileNameMap fileNameMap = URLConnection.getFileNameMap();
+                String mimeType = fileNameMap.getContentTypeFor(filePath);
+                contentType = mimeType;
 
                 if (contentType.equals("text/html")) {
                     content = ReadTempl("head.html") + ReadTempl("header.html") + ReadContent(file)

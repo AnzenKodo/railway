@@ -1,0 +1,101 @@
+.content {
+  max-width: 35rem;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+header {
+  text-align: center;
+}
+header h1 {
+  margin-bottom: 0;
+}
+header h1 a:hover {
+  text-decoration: none
+}
+header p {
+  font-size: .9em;
+}
+
+.warning {
+  color: var(--del-color) 
+}
+label {
+  padding-top: 1em;  
+}
+[type=checkbox]~label, [type=radio]~label {
+  margin-bottom: 1em;
+}
+input[type="submit"] {
+  margin-top: 1em;
+}
+
+#info {
+  max-width: 28rem;
+  margin: 0 auto;
+  border: 5px solid;
+  border-radius: 30px;
+  padding: 2em;
+  background: var(--color);
+  font-size: .8em;
+}
+#info p, #info h2 {
+  font-size: 1.3em;
+  color: var(--background-color);
+  margin-bottom: .9em;
+}
+#info p:has(+ .user-id) {
+  margin-bottom: 0em;
+}
+#info .user-id {
+  font-size: .8em;
+  font-style: italic
+}
+
+#pay-info {
+  text-align: center;
+  border-radius: 50px;
+  padding: 2em 3em;
+  background: var(--h6-color);
+}
+#pay-info h2 {
+  font-size: 3em;
+  margin-bottom: .2em;
+}
+#pay-info p:has(+ img) {
+  margin-bottom: .2em;
+}
+#pay-info img + p {
+  margin-top: 1em;
+}
+#pay-info img{
+  max-width: 15em;
+}
+#pay-info code {
+  color: var(--color);
+  user-select: all;
+}
+#pay-info button {
+  margin-top: 2em;
+}
+
+#pay-info .paid-successful {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: var(--primary);
+}
+
+footer {
+  margin-top: 3em;
+}
+footer p {
+  text-align: center;
+  font-size: smaller;
+  margin-bottom: .1em;
+}
+
+@media print {
+  #print {
+    display: none;
+  }
+}

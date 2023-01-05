@@ -1,31 +1,56 @@
 <form>
-  <p>
-    Phone Number: <input type="tel" id="user-number" required>
-    OTP: <input type="tel" id="user-otp" name="otp" maxlength="6" required>
-  </p>
-  <p id="user-info"></p>
-  <div id="user-new">
-    <p>Name: <input id="user-name" required></p>
-    <p>Date of Birth: <input type="date" max="2010-12-31" id="user-dob" required></p>
-    <p>Sex:
-      <select id="user-sex" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
-    </p>
+  <label for="phone">Phone Number</label>
+  <input type="tel" name="phone" id="phone" placeholder="E.g: 7499820830" pattern="^[+]{0,1}[\d]{12}|^[\d]{10}" maxlength="13" autocomplete autofocus required>
+  <input type="button" value="Send OTP" id="send-otp" maxlength="4">
+  <br>
+
+  <span id="otp-box"></span>
+  <span id="otp-timer"></span>
+
+  <div id="rest-form" hidden>
+    <label for="name">Name</label>
+    <input id="name" placeholder="E.g: Aman Varma" name="name" pattern="[A-z\s]+" autocomplete required>
+    <br>
+
+    <label for="dob">Date of Birth</label> 
+    <input type="date" max="2022-12-31" id="dob" name="dob" autocomplete required>
+    <br>
+
+    <label for="sex">Gender</lable>
+    <select id="sex" name="sex" autocomplete required>
+      <option label>Select Your Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <br>
+
+    <label for="station-from">Station From</label> 
+    <input list="stations-names" id="station-from" name="station-from" placeholder="E.g: Nallasopara" required>
+    <br>
+
+    <label for="station-to">Station To</label>
+    <input list="stations-names" id="station-to" name="station-to" placeholder="E.g: Boiser" required>
+    </br>
+
+    <datalist id="stations-names" required></datalist>
+
+    <label for="class">Class</label>
+    <select id="class" name="class" required>
+      <option lable value="">Select Class</option>
+      <option value="AC">AC</option>
+      <option value="First">First</option>
+      <option value="Second">Second</option>
+    </select>
+    <br>
+
+    <input id="return" name="return" value="true" type="checkbox">
+    <label for="train-return">Return</label>
+    <br>
+
+    <input type="submit">
   </div>
-
-  <p>Station From: <input list="stations-names" id="station-from" required></p>
-  <p>Station To: <input list="stations-names" id="station-to" required></p>
-  <datalist id="stations-names"></datalist>
-  <p>Select Train Type:
-    <input type="radio" name="train-type" value="ac" required> AC
-    <input type="radio" name="train-type" value="first" required> First
-    <input type="radio" name="train-type" value="second" required> Second
-  </p>
-  <p>Return: <input id="train-return" type="checkbox"></p>
-
-  <div id="stations-info"></div>
 </form>
+
+<div id="info" hidden></div>
 <script src="script.js"></script>

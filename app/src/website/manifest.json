@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "ExpressEscape",
+  "sort_name": "ExpressEscape",
+  "start_url": "http://localhost:8080/",
+  "display": "standalone",
+  "background_color": "#11191f",
+  "theme_color": "#1095c1",
+  "description": "Connecting India, one journey at a time.",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "500x500",
+      "type": "image/xml+svg"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "144x144",
+      "type": "image/xml+svg"
+    }
+  ]
+}
